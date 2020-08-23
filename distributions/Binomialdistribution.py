@@ -32,18 +32,6 @@ class Binomial(Distribution):
     #       
     
     def __init__(self, prob=.5, size=20):
-        
-        # TODO: Now that you know p and n, you can calculate the mean and standard deviation
-        #       Use the calculate_mean() and calculate_stdev() methods to calculate the
-        #       distributions mean and standard deviation
-        #
-        #       Then use the init function from the Distribution class to initialize the
-        #       mean and the standard deviation of the distributions
-        #
-        #       Hint: You need to define the calculate_mean() and calculate_stdev() methods
-        #               farther down in the code starting in line 55. 
-        #               The init function can get access to these methods via the self
-        #               variable.
 
         Distribution.__init__(self)
         self.p = prob
@@ -105,7 +93,8 @@ class Binomial(Distribution):
         self.calculate_stdev()
 
         return self.p, self.n
-        
+
+
     def plot_bar(self):
         """Function to output a histogram of the instance variable data using 
         matplotlib pyplot library.
@@ -116,20 +105,14 @@ class Binomial(Distribution):
         Returns:
             None
         """
-            
-        # TODO: Use the matplotlib package to plot a bar chart of the data
-        #       The x-axis should have the value zero or one
-        #       The y-axis should have the count of results for each case
-        #
-        #       For example, say you have a coin where heads = 1 and tails = 0.
-        #       If you flipped a coin 35 times, and the coin landed on
-        #       heads 20 times and tails 15 times, the bar chart would have two bars:
-        #       0 on the x-axis and 15 on the y-axis
-        #       1 on the x-axis and 20 on the y-axis
-        
-        #       Make sure to label the chart with a title, x-axis label and y-axis label
-        pass        
-        
+
+        plt.bar(x = ['0', '1'], height = [(1 - self.p) * self.n, self.p * self.n])
+        plt.xlabel('Data')
+        plt.ylabel('Frequency')
+        plt.title('Bar Chart of Data')
+        plt.show()
+
+
     def pdf(self, k):
         """Probability density function calculator for the gaussian distributions.
         
@@ -169,7 +152,21 @@ class Binomial(Distribution):
 
         #   This method should also return the x and y values used to make the chart
         #   The x and y values should be stored in separate lists
-                
+
+        x = []
+        y = []
+
+        for i in range(self.n + 1):
+            x.append(i)
+            y.append(self.pdf(i))
+
+        plt.bar(x, y)
+        plt.xlabel("# of Success")
+        plt.ylabel("Probability")
+        plt.title("Probability Distribution of Binomial Data")
+        plt.show()
+
+
     def __add__(self, other):
         
         """Function to add together two Binomial distributions with equal p
